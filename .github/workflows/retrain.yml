@@ -50,7 +50,7 @@ jobs:
        cd MLProject
 
        # Ambil run_id TERAKHIR dari mlruns
-       RUN_ID=$(ls -td mlruns/*/* | head -1 | awk -F'/' '{print $(NF)}')
+       RUN_ID=$(mlflow runs list --experiment-id 0 --order-by metrics.accuracy DESC | awk 'NR==2 {print $1}')
 
        echo "Using RUN_ID=$RUN_ID"
 
