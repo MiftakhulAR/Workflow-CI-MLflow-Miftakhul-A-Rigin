@@ -25,10 +25,16 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker Image with MLflow
+    - name: Run MLflow Project (Training)
       run: |
        cd MLProject
-       mlflow models build-docker -m . -n miftah520/heart-disease-mlflow
+       mlflow run . --env-manager=local
+
+    - name: Build Docker Image with MLflow
+      run: |
+       mlflow models build-docker \
+       -m runs:/$(mlflow runs list --max-results 1 | tail -n 1 | awk '{print $1}')/model \
+       -n miftah520/heart-disease-mlflow
 
     - name: Push Docker Image
       run: docker push miftah520/heart-disease-mlflow
