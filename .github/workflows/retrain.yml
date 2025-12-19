@@ -34,10 +34,10 @@ jobs:
       run: |
        cd MLProject
        
-       mlflow run .
+       mlflow run . --env-manager=conda
 
        # Ambil run_id terakhir langsung dari folder mlruns
-       RUN_ID=$(ls -td mlruns/0/* | grep -v meta.yaml | head -1 | xargs basename)
+       RUN_ID=$(mlflow runs list --experiment-id 0 | awk 'NR==2 {print $1}')
 
        echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
        echo "Saved RUN_ID=$RUN_ID"
