@@ -60,3 +60,9 @@ with mlflow.start_run() as run:
     # simpan run_id ke file
     with open("run_id.txt", "w") as f:
         f.write(run_id)
+
+mlflow.sklearn.log_model(
+    sk_model=model,
+    artifact_path="model",
+    registered_model_name=None
+)
