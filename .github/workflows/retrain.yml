@@ -58,7 +58,7 @@ jobs:
        echo "Using RUN_ID=$RUN_ID"
 
        mlflow models build-docker \
-        -m runs:/$RUN_ID/model \
+        -m runs:/$RUN_ID/main/model \
         -n ${{ secrets.DOCKER_USERNAME }}/heart-mlflow:latest
 
     - name: Push Docker Image
