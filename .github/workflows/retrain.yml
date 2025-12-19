@@ -11,11 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
     - name: Install MLflow (latest)
       run: pip install mlflow>=2.9 docker
       
@@ -39,10 +34,10 @@ jobs:
       run: |
        cd MLProject
        
-       mlflow run . --env-manager=local
+       mlflow run .
 
        # Ambil run_id terakhir langsung dari folder mlruns
-       RUN_ID=$(ls -td mlruns/0/* | grep -v meta.yaml | head -1 | xargs basename)
+       RUN_ID=$(mlflow runs list --experiment-id 0 --order-by metrics.accuracy DESC -m 1 | tail -n 1 | awk '{print $1}')
 
        echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
        echo "Saved RUN_ID=$RUN_ID"
