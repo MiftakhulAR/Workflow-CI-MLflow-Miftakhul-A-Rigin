@@ -44,6 +44,12 @@ jobs:
     - name: Debug installed packages
       run: pip list
 
+    - name: Debug MLflow artifacts
+      run: |
+       cd MLProject
+       echo "=== MLruns structure ==="
+       find mlruns -maxdepth 4
+
     - name: Build Docker Image with MLflow
       shell: bash -l {0}
       run: |
