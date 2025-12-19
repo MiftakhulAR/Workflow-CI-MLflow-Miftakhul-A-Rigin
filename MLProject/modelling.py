@@ -51,3 +51,12 @@ with mlflow.start_run():
 
     # Save model
     mlflow.sklearn.log_model(model, "model")
+
+import os
+
+with mlflow.start_run() as run:
+    run_id = run.info.run_id
+
+    # simpan run_id ke file
+    with open("run_id.txt", "w") as f:
+        f.write(run_id)
