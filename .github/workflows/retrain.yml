@@ -37,7 +37,7 @@ jobs:
        mlflow run .
 
        # Ambil run_id terakhir langsung dari folder mlruns
-       RUN_ID=$(mlflow runs list --experiment-id 0 --order-by metrics.accuracy DESC -m 1 | tail -n 1 | awk '{print $1}')
+       RUN_ID=$(ls -td mlruns/0/* | grep -v meta.yaml | head -1 | xargs basename)
 
        echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
        echo "Saved RUN_ID=$RUN_ID"
