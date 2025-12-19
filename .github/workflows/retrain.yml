@@ -49,11 +49,15 @@ jobs:
       run: |
        cd MLProject
 
-       echo "Build Docker from latest MLflow run"
+       echo "Find latest MLflow model artifact..."
+
+       MODEL_PATH=$(ls -td mlruns/0/*/artifacts/model | head -1)
+
+       echo "Using MODEL_PATH=$MODEL_PATH"
 
        mlflow models build-docker \
-        -m mlruns/0/*/artifacts/model \
-        -n ${{ secrets.DOCKER_USERNAME }}/heart-mlflow:latest
+        -m $MODEL_PATH \
+        -n miftah520/heart-mlflow:latest
 
     - name: Push Docker Image
       run: docker push miftah520/heart-disease-mlflow
