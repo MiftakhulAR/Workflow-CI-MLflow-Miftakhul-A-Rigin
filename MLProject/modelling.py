@@ -49,4 +49,4 @@ plt.savefig("confusion_matrix.png")
 mlflow.log_artifact("confusion_matrix.png")
 
 # LOG MODEL (INI YANG DICARI DOCKER)
-mlflow.sklearn.log_model(model, artifact_path="model")
+mlflow.sklearn.log_model(model, "model")
