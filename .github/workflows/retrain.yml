@@ -33,13 +33,7 @@ jobs:
       shell: bash -l {0}
       run: |
        cd MLProject
-       
        mlflow run . --env-manager=conda
-
-       RUN_ID=$(cat run_id.txt)
-
-       echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
-       echo "Saved RUN_ID=$RUN_ID"
 
     - name: Debug installed packages
       run: pip list
@@ -55,10 +49,10 @@ jobs:
       run: |
        cd MLProject
 
-       echo "Using RUN_ID=$RUN_ID"
+       echo "Build Docker from latest MLflow run"
 
        mlflow models build-docker \
-        -m mlruns/0/$RUN_ID/artifacts/model \
+        -m mlruns/0/*/artifacts/model \
         -n ${{ secrets.DOCKER_USERNAME }}/heart-mlflow:latest
 
     - name: Push Docker Image
