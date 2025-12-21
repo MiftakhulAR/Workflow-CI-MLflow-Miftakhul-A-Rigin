@@ -61,7 +61,8 @@ jobs:
 
        mlflow models build-docker \
        -m mlruns/0/models/$MODEL_DIR/artifacts \
-       -n ${{ secrets.DOCKER_USERNAME }}/heart-mlflow:latest
+       -n ${{ secrets.DOCKER_USERNAME }}/heart-disease-mlflow:latest
 
     - name: Push Docker Image
-      run: docker push miftah520/heart-disease-mlflow
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/heart-disease-mlflow:latest
+
