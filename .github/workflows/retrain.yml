@@ -35,6 +35,12 @@ jobs:
        cd MLProject
        mlflow run . --env-manager=conda
 
+    - name: DEBUG – tampilkan isi mlruns
+      run: |
+       cd MLProject
+       echo "===== STRUKTUR mlruns ====="
+       find mlruns -type d
+
     - name: Debug installed packages
       run: pip list
 
