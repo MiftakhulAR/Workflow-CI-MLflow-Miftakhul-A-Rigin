@@ -50,16 +50,18 @@ jobs:
        echo "=== MLruns structure ==="
        find mlruns -maxdepth 4
 
-    - name: Build Docker Image with MLflow
+    - name: Build Docker Image with MLflow (from Model Registry)
       run: |
        cd MLProject
-       MODEL_PATH=$(find mlruns -type d -path "*artifacts/model" | head -1)
-       echo "MODEL_PATH=$MODEL_PATH"
+
+       echo "Cari model di MLflow Model Registry..."
+       MODEL_DIR=$(ls mlruns/0/models | head -1)
+
+       echo "MODEL_DIR=$MODEL_DIR"
 
        mlflow models build-docker \
-       -m $MODEL_PATH \
+       -m mlruns/0/models/$MODEL_DIR \
        -n ${{ secrets.DOCKER_USERNAME }}/heart-mlflow:latest
-
 
     - name: Push Docker Image
       run: docker push miftah520/heart-disease-mlflow
