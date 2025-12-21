@@ -55,3 +55,4 @@ with mlflow.start_run():
         artifact_path="model"
     )
 
+print(">>> MODELLING.PY VERSI TERBARU DIJALANKAN <<<")
