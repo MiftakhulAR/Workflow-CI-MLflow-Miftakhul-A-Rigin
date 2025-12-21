@@ -60,7 +60,7 @@ jobs:
        echo "MODEL_DIR=$MODEL_DIR"
 
        mlflow models build-docker \
-       -m mlruns/0/models/$MODEL_DIR \
+       -m mlruns/0/models/$MODEL_DIR/artifacts \
        -n ${{ secrets.DOCKER_USERNAME }}/heart-mlflow:latest
 
     - name: Push Docker Image
